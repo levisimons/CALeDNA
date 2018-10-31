@@ -34,7 +34,7 @@ for(file in fileList){
     #Make a presence/absence matrix
     DataLocationSubset[DataLocationSubset > 0] <- 1
     zetaN <- Zeta.order.ex(DataLocationSubset,order=3,rescale=TRUE)
-    if(zetaN$zeta.val==0){
+    if(zetaN$zeta.val==0 | is.na(zetaN$zeta.val)==TRUE){
       zetaN_scaled=0
     } else{
       zeta1 <- Zeta.order.ex(DataLocationSubset,order=1,rescale=TRUE)
