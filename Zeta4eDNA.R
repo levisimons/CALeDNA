@@ -65,5 +65,7 @@ for(file in fileList){
 colnames(zetaLocation) <- c("file","location","primer",paste("zeta",zetaNum,sep=""),paste("zeta",zetaNum,"sd",sep=""),paste("zeta",zetaNum,"scaled",sep=""),paste("zeta",zetaNum,"sdscaled",sep=""),"ExpIntercept","ExpExp","ExpAIC","PLIntercept","PLExp","PLAIC")
 zetaLocation[is.na(zetaLocation)] <- NA
 
-write.table(zetaLocation,"CALeDNAZetaDecay.txt",quote=FALSE,sep="\t",row.names = FALSE)
+#write.table(zetaLocation,"CALeDNAZetaDecay.txt",quote=FALSE,sep="\t",row.names = FALSE)
 
+#If the file CALeDNAZetaDecay.txt was already generated on the cluster read it in here.
+zetaLocation <- read.table("CALeDNAZetaDecay.txt", header=TRUE, sep="\t",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
