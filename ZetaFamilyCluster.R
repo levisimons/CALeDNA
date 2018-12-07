@@ -56,19 +56,20 @@ for(primer in primerList){
       dat <- data.frame()
       dat[1,1] <- primer
       dat[1,2] <- uniqueFactor
-      dat[1,3] <- zetaVars$`Adjusted Rsq`[6]
-      dat[1,4] <- zetaVars$`Adjusted Rsq`[4]
-      dat[1,5] <- zetaVars$`Adjusted Rsq`[7]
+      dat[1,3] <- nrow(metadataSubset)
+      dat[1,4] <- zetaVars$`Adjusted Rsq`[6]
+      dat[1,5] <- zetaVars$`Adjusted Rsq`[4]
+      dat[1,6] <- zetaVars$`Adjusted Rsq`[7]
       zetaAnalysis <- rbind(zetaAnalysis,dat)
-      print(paste(primer,uniqueFactor))
+      print(paste(dat[1,1],dat[1,2],dat[1,3]))
       print(paste("Proportion variation by factor group",zetaVars$`Adjusted Rsq`[6]))
       print(paste("Proportion variation by separation distance",zetaVars$`Adjusted Rsq`[4]))
       print(paste("Proportion variation by unknown factors",zetaVars$`Adjusted Rsq`[7]))
     }
   }
 }
-colnames(zetaAnalysis) <- c("Primer","FactorGroup","VarFactor","VarDistance","VarUnknown")
-
+colnames(zetaAnalysis) <- c("Primer","FactorGroup","NumSamples","VarFactor","VarDistance","VarUnknown")
+write.table(zetaAnalysis,"CALeDNAZeta4Family.txt",quote=FALSE,sep="\t",row.names = FALSE)
 
 #Create subset presence/absence tables for each geographic cluster.
 #This is useful for downstream analysis such as mapping.
