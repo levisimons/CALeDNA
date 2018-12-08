@@ -80,3 +80,22 @@ for(primer in primerList){
 colnames(zetaLocation) <- c("file","clusterID","primer",paste("zeta",zetaNum,sep=""),paste("zeta",zetaNum,"sd",sep=""),paste("zeta",zetaNum,"scaled",sep=""),paste("zeta",zetaNum,"sdscaled",sep=""),"ExpIntercept","ExpExp","ExpAIC","PLIntercept","PLExp","PLAIC")
 zetaLocation[is.na(zetaLocation)] <- NA
 write.table(zetaLocation,"Zeta4ClassMapData.txt",quote=FALSE,sep="\t",row.names = FALSE)
+
+##To create the maps of zeta diversity.
+#Choose a primer to subset zeta diversity results.
+zetaLocation <- read.table("Zeta4ClassMapData.txt", header=TRUE, sep="\t",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
+primer <- "CO1" #Choose a primer
+zetaPrimerSubset <- zetaLocation[which(zetaLocation$primer==primer),]
+#Merge zeta diversity data with sample site metadata.
+zetaAnalysis <- left_join(zetaPrimerSubset,metadata,by=c("clusterID"="Zeta_4ID"))
+
+#To generate map of data for a given zeta diversity parameter in California.
+dev.off()
+MapCoordinates <- zetaAnalysis
+#Map data.
+CalMap = leaflet(MapCoordinates) %>% 
+  addTiles()
+ColorScale <- colorNumeric(palette=rainbow(10),domain=MapCoordinates$zeta4scaled)
+CalMap %>% addCircleMarkers(color = ~ColorScale(zeta4scaled), fill = TRUE,radius=0.1,fillOpacity = 0.1) %>% 
+  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled zeta_4 diversity"))
