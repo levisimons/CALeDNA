@@ -1,14 +1,6 @@
 # /usr/usc/R/3.4.4/bin/Rscript to run on the USC cluster
 require(zetadiv)
 require(plyr)
-require(ggmap)
-require(maps)
-require(mapview)
-require(mapdata)
-require(munsell)
-require(leaflet)
-require(devtools)
-require(webshot)
 
 #This script creates the zeta diversity decay parameters for geographically clustered sites
 #with OTUs defined at the family level
