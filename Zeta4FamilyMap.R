@@ -9,6 +9,7 @@ require(munsell)
 require(leaflet)
 require(devtools)
 require(webshot)
+require(viridis)
 
 #This script creates the zeta diversity decay parameters for geographically clustered sites
 #with OTUs defined at the family level
@@ -44,6 +45,8 @@ for(primer in primerList){
     colnames(OTUFamily) <- familyNames
     #Create OTU tables by primer group, clustered to family.
     OTUFamily[OTUFamily > 0] <- 1
+    #Calculate zeta diversity decay, up to a specified order, for the communities within each geographic cluster
+    # with community presence/absences defined at the family level.
     for(clusterID in unique(clusteredSites$Zeta_4ID)){
       uniqueCluster <- clusteredSites[clusteredSites$Zeta_4ID==clusterID,]
       DataLocationSubset <- OTUFamily[rownames(OTUFamily) %in% uniqueCluster$MatchName,]
@@ -89,7 +92,7 @@ MapCoordinates <- zetaAnalysis
 #Map data.
 CalMap = leaflet(MapCoordinates) %>% 
   addTiles()
-ColorScale <- colorNumeric(palette=rainbow(10),domain=MapCoordinates$zeta4scaled)
+ColorScale <- colorNumeric(palette=plasma(10),domain=MapCoordinates$zeta4scaled)
 CalMap %>% addCircleMarkers(color = ~ColorScale(zeta4scaled), fill = TRUE,radius=0.1,fillOpacity = 0.1) %>% 
   addProviderTiles(providers$Esri.WorldTopoMap) %>%
   addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled zeta_4 diversity"))
