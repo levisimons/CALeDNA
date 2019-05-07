@@ -11,7 +11,7 @@ setwd(wd)
 metadata <- read.table("Final_metadata.csv", header=TRUE, sep=",",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
 metadata$clust <- as.factor(as.character(metadata$clust))
 #Get the groups for the type of environmental factors.
-factorGroups <- read.table("Metadata_explanation.csv", header=TRUE, sep=",",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
+factorGroups <- read.delim("Metadata_explanation.csv", header=TRUE, sep=",",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
 #Unique environmental factors are as follows:
 uniqueFactors <- c("Location","Topology","Habitat","BioClim","Soil Properties","Vegetation")
 #Get the cluster ID of all of the sample sites where locations have sufficient numbers of samples.
