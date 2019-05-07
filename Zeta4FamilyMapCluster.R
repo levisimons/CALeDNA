@@ -14,7 +14,7 @@ require(webshot)
 #with OTUs defined at the family level
 
 ##To generate the input data for mapping.
-wd <- "/home/rcf-40/alsimons/cmb/CALeDNA"
+wd <- "~/cmb/CALeDNA"
 setwd(wd)
 metadata <- read.table("Final_metadata.csv", header=TRUE, sep=",",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
 metadata$clust <- as.factor(as.character(metadata$clust))
