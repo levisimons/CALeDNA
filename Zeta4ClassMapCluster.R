@@ -6,7 +6,7 @@ require(plyr)
 #with OTUs defined at the family level
 
 ##To generate the input data for mapping.
-wd <- "~/Desktop/CALeDNA" #Change on the cluster to ~/panfs/CALeDNA
+wd <- "~/cmb/CALeDNA" #Change on the cluster to ~/panfs/CALeDNA
 setwd(wd)
 metadata <- read.table("Final_metadata.csv", header=TRUE, sep=",",as.is=T,skip=0,fill=TRUE,check.names=FALSE)
 metadata$clust <- as.factor(as.character(metadata$clust))
