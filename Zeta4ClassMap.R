@@ -1,6 +1,7 @@
 # /usr/usc/R/3.4.4/bin/Rscript to run on the USC cluster
 require(zetadiv)
 require(plyr)
+require(dplyr)
 require(ggmap)
 require(maps)
 require(mapview)
@@ -9,6 +10,7 @@ require(munsell)
 require(leaflet)
 require(devtools)
 require(webshot)
+require(viridis)
 
 #This script creates the zeta diversity decay parameters for geographically clustered sites
 #with OTUs defined at the family level
@@ -95,7 +97,7 @@ MapCoordinates <- zetaAnalysis
 #Map data.
 CalMap = leaflet(MapCoordinates) %>% 
   addTiles()
-ColorScale <- colorNumeric(palette=rainbow(10),domain=MapCoordinates$zeta4scaled)
+ColorScale <- colorNumeric(palette=plasma(10),domain=MapCoordinates$zeta4scaled)
 CalMap %>% addCircleMarkers(color = ~ColorScale(zeta4scaled), fill = TRUE,radius=0.1,fillOpacity = 0.1) %>% 
   addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled zeta_4 diversity"))
+  addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled &#950;<sub>4</sub></b><br>family diversity"))
