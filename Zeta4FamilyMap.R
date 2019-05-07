@@ -94,5 +94,6 @@ CalMap = leaflet(MapCoordinates) %>%
   addTiles()
 ColorScale <- colorNumeric(palette=plasma(10),domain=MapCoordinates$zeta4scaled)
 CalMap %>% addCircleMarkers(color = ~ColorScale(zeta4scaled), fill = TRUE,radius=0.1,fillOpacity = 0.1) %>% 
+  setView(median(MapCoordinates$Longitude),median(MapCoordinates$Latitude),zoom=5) %>%
   addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled zeta_4 diversity"))
+  addLegend("topright", pal=ColorScale,values=~zeta4scaled,title=paste(primer,"Scaled &#950;<sub>4</sub></b><br>family diversity"))
